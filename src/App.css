@@ -40,7 +40,11 @@ input:focus{
     justify-content: center;
     align-items: center;
     margin:20px;
-    
+    transition: all .1s ease;
+}
+.users>.user:hover{
+    cursor:pointer;
+    transform: scale(1.2);
 }
 @media(max-width:768px)
 {
@@ -53,4 +57,9 @@ input:focus{
     height: 150px;
     border-radius: 50%;
     border:1px solid black;
+}
+.address{
+    text-align: center;
+    border:1px solid black;
+    padding:20px;
 }
