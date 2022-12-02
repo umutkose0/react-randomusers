@@ -1,8 +1,8 @@
 import React from "react"
-const Header=()=>{
+const Header=({search,setSearch})=>{
     return (
         <header>
-            <input type="text" placeholder="search in users..."/>
+            <input type="text" value={search} onChange={(e)=>{setSearch(e.target.value.toLowerCase())}} placeholder="search in users..."/>
         </header>
     );
 }

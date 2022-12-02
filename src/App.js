@@ -7,6 +7,8 @@ import axios from 'axios';
 
 function App() {
   const [users,setUsers]=useState([]);
+  const [filteredUsers,setFilteredUsers]=useState([]);
+  const [search,setSearch]=useState([]);
   const [user,setUser]=useState();
   const [modal,setModal]=useState(true);
   const styles={
@@ -26,18 +28,24 @@ function App() {
     let r=response.data;
     console.log(r)
     setUsers(r.results)
+    setFilteredUsers(r.results);
   }
   useEffect(()=>{
      (async()=>{
       await getUsers();
      })()
   },[])
-
+  useEffect(()=>{
+    let filtered=users.filter((user)=>(user.name.first.toLowerCase()+" "+user.name.last.toLowerCase()).includes(search))
+    
+    search?setFilteredUsers(filtered):setFilteredUsers(users)
+    console.log(filteredUsers)
+  },[search])
   return (
     <div className="App">
-      <Header/>
+      <Header search={search} setSearch={setSearch} />
       <div className="users">
-      {users?users.map((user,i)=><User onClick={openModal} key={i} user={user}/>):""}
+      {filteredUsers?filteredUsers.map((user,i)=><User onClick={openModal} key={i} user={user}/>):""}
       </div>
       {user?
       <Modal user={user} styles={styles} modal={modal} setModal={setModal}/>
